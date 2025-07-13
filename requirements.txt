@@ -1,0 +1,5 @@
+pillow
+pytesseract
+tdqm
+pyyaml
+typer[all]

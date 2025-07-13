@@ -1,0 +1,14 @@
+input: "./imagens"
+output: "./saida"
+steps:
+  - resize
+  - grayscale
+
+workers: 4
+verbose: true
+
+steps_params:
+  resize:
+    width: 200
+    height: 200
+  grayscale: {}
