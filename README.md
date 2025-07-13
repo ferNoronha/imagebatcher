@@ -12,18 +12,6 @@ python cli.py --input ./imagens --output ./saida --steps resize,grayscale
 
 Você pode definir todos os parâmetros em um arquivo `pipeline.yaml` e executar com um único comando.
 
-### Exemplo de arquivo `pipeline.yaml`:
-
-```yaml
-input: "./imagens"
-output: "./saida"
-steps:
-  - resize
-  - grayscale
-resize_shape: "800"
-workers: 4
-verbose: true
-```
 ### Comando para executar:
 
 ```bash
@@ -56,22 +44,45 @@ Você pode definir todos os parâmetros do pipeline em um arquivo YAML, incluind
 input: "./imagens"
 output: "./saida"
 steps:
-  - resize
   - grayscale
+  - autocontrast
+  - blur
+  - threshold
+  - erode
+  - dilate
+  - ocr
 
 step_params:
-  resize:
-    width: 100
-    height: 0         
+  blur:
+    radius: 1.5
+  threshold:
+    threshold: 100
+  autocontrast:
+    cutoff: 1
+  erode:
+    kernel_size: 3
+    iterations: 1
+  dilate:
+    kernel_size: 3
+    iterations: 1
+
 workers: 4
 verbose: true
+report_verbose: true
 ```
-## ⚙️ step_params disponíveis atualmente:
+## ⚙️ step disponíveis atualmente:
 
-| Step   | Parâmetro | Tipo | Descrição                                     |
-| ------ | --------- | ---- | --------------------------------------------- |
-| resize | `width`   | int  | Largura final da imagem                       |
-|        | `height`  | int  | Altura final; se 0, calcula proporcionalmente |
+| Nome           | Descrição                                                | Parâmetros disponíveis        |
+| -------------- | -------------------------------------------------------- | ----------------------------- |
+| `resize`       | Redimensiona imagem para largura/altura                  | `width`, `height`             |
+| `grayscale`    | Converte para tons de cinza                              | —                             |
+| `invert`       | Inverte as cores (negativo)                              | —                             |
+| `blur`         | Aplica desfoque Gaussian                                 | `radius` (float)              |
+| `threshold`    | Binariza imagem (0 ou 255)                               | `threshold` (int de 0 a 255)  |
+| `autocontrast` | Ajusta contraste automaticamente                         | `cutoff` (0 a 100)            |
+| `erode`        | Aplica erosão (remove bordas finas)                      | `kernel_size`, `iterations`   |
+| `dilate`       | Aplica dilatação (expande bordas, bom p/ reforçar texto) | `kernel_size`, `iterations`   |
+
 
 
 ## ✅ Observações

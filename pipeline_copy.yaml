@@ -3,12 +3,25 @@ output: "./saida"
 steps:
   - resize
   - grayscale
+  - autocontrast
+  - invert
+  - blur
+  - threshold
 
 workers: 4
 verbose: true
+
+report: false
 
 steps_params:
   resize:
     width: 200
     height: 200
   grayscale: {}
+  autocontrast:
+    cutoff: 0
+  invert: {}
+  blur:
+    radius: 2
+  threshold:
+    threshold: 128
